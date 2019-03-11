@@ -5,15 +5,21 @@ import 'package:get_it/get_it.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
- GetIt getIt = new GetIt(); // Required for v4
+ GetIt getIt = new GetIt(); // only Required for v4
 
 void main() {
-  getIt.registerSingleton<Counter>(Counter()); // Required for v4
+  getIt.registerSingleton<Counter>(Counter()); // only Required for v4
   runApp(MyApp());
 } 
 
 
 
+
+
+
+
+
+///// 5. BLoC
 
 class MyApp extends StatelessWidget {
   // Modify this based on the state management approach you choose. 
@@ -27,12 +33,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-///// 5. BLoC
 
 
 enum CounterEvent { increment }
@@ -102,7 +102,8 @@ class Counter {
 
 
   // NOTE Requires Rx 0.21, update your pubspec.yaml
-  BehaviorSubject _counter = BehaviorSubject.seeded(0);
+  // BehaviorSubject _counter = BehaviorSubject.seeded(0);
+  BehaviorSubject _counter = BehaviorSubject(seedValue: 0);
 
   get stream$ => _counter.stream;
   int get current => _counter.value;
@@ -111,16 +112,19 @@ class Counter {
     _counter.add(current + 1);
   }
 
-  builder() {
-    
-  }
-
 }
 
 
 // Counter counterService = Counter();
 
-
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: MyHomePage4()
+//     );
+//   }
+// }
 
 
 class MyHomePage4 extends StatelessWidget {
@@ -169,6 +173,14 @@ class MyHomePage4 extends StatelessWidget {
 
 ////// 3. Inherited Widget
 
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: InheritedCounter( child: MyHomePage3() )
+//     );
+//   }
+// }
 
 class InheritedCounter extends InheritedWidget {
   final Map _counter = { 'val': 0 };
@@ -236,6 +248,16 @@ class MyHomePage3 extends StatelessWidget {
 
 ////// 2. StatefulBuilder
 
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: MyHomePage2()
+//     );
+//   }
+// }
+
 class MyHomePage2 extends StatelessWidget {
   int _counter = 0;
 
@@ -275,6 +297,16 @@ class MyHomePage2 extends StatelessWidget {
 
 
 ////// 1. StatefulWidget
+
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: MyHomePage()
+//     );
+//   }
+// }
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
